@@ -1,0 +1,59 @@
+create table employee(ID int,employeeName varchar(200));
+create table Department(ID int,Department varchar(200));
+create table employeeDepartmentMapping(ID int,EmployeeID int,DepartmentID int);
+
+insert into  employee(ID ,employeeName ) values(1,'anjali');
+insert into  employee(ID ,employeeName) values(2,'preethi');
+insert into  employee(ID,employeeName) values(3,'kajal');
+
+insert into Department(ID,Department) values(1,'IT');
+insert into  Department(ID,Department) values(2,'Admin');
+insert into Department(ID,Department) values(3,'HR');
+insert into Department(ID,Department) values(4,'finance');
+
+insert into employeeDepartmentMapping(ID ,EmployeeID ,DepartmentID ) values(1,1,2);
+insert into employeeDepartmentMapping(ID ,EmployeeID ,DepartmentID ) values(2,3,4);
+insert into employeeDepartmentMapping(ID,EmployeeID ,DepartmentID ) values(3,4,5);
+insert into employeeDepartmentMapping(ID ,EmployeeID ,DepartmentID ) values(4,5,6);
+
+select employeename,department from employee, Department;(cartesian product)
+select * from employee,employeeDepartmentMapping where employee.ID=employeeDepartmentMapping.employeeid(euijoin)
+
+create table employeemgr(ID int,employeeName varchar(200),ManagerID int);
+select EMPLOYEENAME,DEPARTMENTID from employee Natural join employeeDepartmentMapping(natural join)
+
+create table student(studentid int,stuname varchar(200));
+create table depart(depid int,deptname varchar(200));
+
+
+select DEPARTMENT_ID,DEPARTMENT_NAME from  HR.DEPARTMENTS DEPT where EXISTS (select DEPARTMENT_ID from  HR.EMPLOYEES EMP where EMP.DEPARTMENT_ID=DEPT.DEPARTMENT_ID )
+
+select DEPARTMENT_ID,DEPARTMENT_NAME from  HR.DEPARTMENTS DEPT where EXISTS (select DEPARTMENT_ID from  HR.EMPLOYEES EMP where EMP.DEPARTMENT_ID=DEPT.DEPARTMENT_ID );
+select First_name,Manager_Id from HR.EMPLOYEES connect by prior employee_id=Manager_id
+start with Employee_id=100;
+
+create table sample(ID int NOT NULL,Text Varchar2(200) NOT NULL,CreatedOn Date default sysdate);
+ 
+select * from sampletable
+insert into sample(ID,TEXT) values(1,'Vikash');
+insert into sample(ID) values(2);
+ 
+create table sampletable(ID int NOT NULL,Text Varchar2(200),SampleValue Number(4,2),CreatedOn Date default sysdate,CONSTRAINT ID_UK UNIQUE(ID) );
+ 
+insert into sampletable(ID,TEXT) values(1,'Vikash');
+ 
+create table sampletablex(ID int CONSTRAINT ID_PK PRIMARY KEY,Text Varchar2(200) );
+ 
+create table sampletablexy(ID int,Text Varchar2(200),SampleValue Number(4,2) CONSTRAINT SampleValue_MIN CHECK(SampleValue>100) );
+ 
+insert into sampletablexy(ID,SampleValue) values(1,100.00);
+ 
+alter table sampletablexy add(xvalue int);
+select * from sampletablexy;
+alter table sampletablexy Modify(SampleValue int);
+select * from sampletablexy
+alter table sampletablexy  drop COLUMN XVALUE;
+ 
+drop table sampletablexy
+RENAME sampletable to sampletablexy
+truncate table sampletablexy
